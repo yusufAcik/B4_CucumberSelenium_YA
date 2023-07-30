@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f7da706-3bdc-449f-919a-92e9428b95b5" name="Changes" comment="cukesrunner updated2" />
+    <list default="true" id="3f7da706-3bdc-449f-919a-92e9428b95b5" name="Changes" comment="driver class" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,6 +70,14 @@
       <option name="presentableId" value="Default" />
       <updated>1689796174570</updated>
     </task>
+    <task id="LOCAL-00001" summary="driver class">
+      <created>1690739293483</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1690739293483</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -82,5 +90,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="driver class" />
+    <option name="LAST_COMMIT_MESSAGE" value="driver class" />
   </component>
 </project>

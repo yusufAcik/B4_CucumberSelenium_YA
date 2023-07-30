@@ -1,4 +1,4 @@
-@regression
+@regression @parallel
 Feature: Negative Login Test
 
   @c_negative_login

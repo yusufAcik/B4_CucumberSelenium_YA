@@ -1,5 +1,5 @@
 @_listAndMap
-  @regression
+  @regression @parallel
 Feature: Dashboard Menu Checks
 
   Background:

@@ -1,3 +1,4 @@
+@regression @parallel
 Feature: Components Title Checks
 
   @title
