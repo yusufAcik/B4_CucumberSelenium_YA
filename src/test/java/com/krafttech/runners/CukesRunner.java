@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         dryRun = false,
         // dryRun testlerin taslaklarını almak için true yapılır
         // normalde testlerin koşturulabilmesi için false olması gerekir
-        tags = "@login"
+        tags = "@regression"
 
 )
 public class CukesRunner {
