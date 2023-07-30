@@ -1,0 +1,152 @@
+Index: src/test/java/com/krafttech/utilities/Driver.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.krafttech.utilities;\r\nimport io.github.bonigarcia.wdm.WebDriverManager;\r\nimport org.openqa.selenium.WebDriver;\r\nimport org.openqa.selenium.WebDriverException;\r\nimport org.openqa.selenium.chrome.ChromeDriver;\r\nimport org.openqa.selenium.chrome.ChromeOptions;\r\nimport org.openqa.selenium.edge.EdgeDriver;\r\nimport org.openqa.selenium.firefox.FirefoxDriver;\r\nimport org.openqa.selenium.firefox.FirefoxOptions;\r\nimport org.openqa.selenium.ie.InternetExplorerDriver;\r\nimport org.openqa.selenium.safari.SafariDriver;\r\n\r\npublic class Driver {\r\n\r\n    private Driver() {}\r\n\r\n    private static WebDriver driver;\r\n\r\n    public static WebDriver get() {\r\n        if (driver == null) {\r\n            String browser = ConfigurationReader.get(\"browser\");\r\n            switch (browser) {\r\n                case \"chrome\":\r\n                    WebDriverManager.chromedriver().setup();\r\n                    driver = new ChromeDriver();\r\n                    break;\r\n                case \"chrome-headless\":\r\n                    WebDriverManager.chromedriver().setup();\r\n                    driver = new ChromeDriver(new ChromeOptions().setHeadless(true));\r\n                    break;\r\n                case \"firefox\":\r\n                    WebDriverManager.firefoxdriver().setup();\r\n                    driver = new FirefoxDriver();\r\n                    break;\r\n                case \"firefox-headless\":\r\n                    WebDriverManager.firefoxdriver().setup();\r\n                    driver = new FirefoxDriver(new FirefoxOptions().setHeadless(true));\r\n                    break;\r\n                case \"ie\":\r\n                    if (!System.getProperty(\"os.name\").toLowerCase().contains(\"windows\"))\r\n                        throw new WebDriverException(\"Your OS doesn't support Internet Explorer\");\r\n                    WebDriverManager.iedriver().setup();\r\n                    driver = new InternetExplorerDriver();\r\n                    break;\r\n\r\n                case \"edge\":\r\n                    if (!System.getProperty(\"os.name\").toLowerCase().contains(\"windows\"))\r\n                        throw new WebDriverException(\"Your OS doesn't support Edge\");\r\n                    WebDriverManager.edgedriver().setup();\r\n                    driver = new EdgeDriver();\r\n                    break;\r\n\r\n                case \"safari\":\r\n                    if (!System.getProperty(\"os.name\").toLowerCase().contains(\"mac\"))\r\n                        throw new WebDriverException(\"Your OS doesn't support Safari\");\r\n                    WebDriverManager.getInstance(SafariDriver.class).setup();\r\n                    driver = new SafariDriver();\r\n                    break;\r\n            }\r\n\r\n        }\r\n        return driver;\r\n    }\r\n\r\n    public static void closeDriver() {\r\n        if (driver != null) {\r\n            driver.quit();\r\n            driver = null;\r\n        }\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/com/krafttech/utilities/Driver.java b/src/test/java/com/krafttech/utilities/Driver.java
+--- a/src/test/java/com/krafttech/utilities/Driver.java	(revision e511a575a4c519167435712f9658db6a5b71ad8a)
++++ b/src/test/java/com/krafttech/utilities/Driver.java	(date 1690733553335)
+@@ -1,4 +1,5 @@
+ package com.krafttech.utilities;
++
+ import io.github.bonigarcia.wdm.WebDriverManager;
+ import org.openqa.selenium.WebDriver;
+ import org.openqa.selenium.WebDriverException;
+@@ -11,62 +12,60 @@
+ import org.openqa.selenium.safari.SafariDriver;
+ 
+ public class Driver {
+-
+-    private Driver() {}
+-
+-    private static WebDriver driver;
+-
++    private Driver() {
++    }
++    //InheritableThreadLocal  --> this is like a container, bag, pool. This is a java class
++    //in this pool we can have separate objects for each thread
++    //for each thread, in InheritableThreadLocal we can have separate object for that thread
++    //driver class will provide separate webdriver object per thread
++    private static InheritableThreadLocal<WebDriver> driverPool = new InheritableThreadLocal<>();
+     public static WebDriver get() {
+-        if (driver == null) {
+-            String browser = ConfigurationReader.get("browser");
++        //if this thread doesn't have driver - create it and add to pool
++        if (driverPool.get() == null) {
++            //if we pass the driver from terminal then use that one
++            //if we do not pass the driver from terminal then use the one properties file
++            String browser = System.getProperty("browser") != null ? System.getProperty("browser") : ConfigurationReader.get("browser");
+             switch (browser) {
+                 case "chrome":
+                     WebDriverManager.chromedriver().setup();
+-                    driver = new ChromeDriver();
++                    driverPool.set(new ChromeDriver());
+                     break;
+                 case "chrome-headless":
+                     WebDriverManager.chromedriver().setup();
+-                    driver = new ChromeDriver(new ChromeOptions().setHeadless(true));
++                    driverPool.set(new ChromeDriver(new ChromeOptions().setHeadless(true)));
+                     break;
+                 case "firefox":
+                     WebDriverManager.firefoxdriver().setup();
+-                    driver = new FirefoxDriver();
++                    driverPool.set(new FirefoxDriver());
+                     break;
+                 case "firefox-headless":
+                     WebDriverManager.firefoxdriver().setup();
+-                    driver = new FirefoxDriver(new FirefoxOptions().setHeadless(true));
++                    driverPool.set(new FirefoxDriver(new FirefoxOptions().setHeadless(true)));
+                     break;
+                 case "ie":
+                     if (!System.getProperty("os.name").toLowerCase().contains("windows"))
+                         throw new WebDriverException("Your OS doesn't support Internet Explorer");
+                     WebDriverManager.iedriver().setup();
+-                    driver = new InternetExplorerDriver();
++                    driverPool.set(new InternetExplorerDriver());
+                     break;
+-
+                 case "edge":
+                     if (!System.getProperty("os.name").toLowerCase().contains("windows"))
+                         throw new WebDriverException("Your OS doesn't support Edge");
+                     WebDriverManager.edgedriver().setup();
+-                    driver = new EdgeDriver();
++                    driverPool.set(new EdgeDriver());
+                     break;
+-
+                 case "safari":
+                     if (!System.getProperty("os.name").toLowerCase().contains("mac"))
+                         throw new WebDriverException("Your OS doesn't support Safari");
+                     WebDriverManager.getInstance(SafariDriver.class).setup();
+-                    driver = new SafariDriver();
++                    driverPool.set(new SafariDriver());
+                     break;
+             }
+-
+         }
+-        return driver;
++        return driverPool.get();
+     }
+-
+     public static void closeDriver() {
+-        if (driver != null) {
+-            driver.quit();
+-            driver = null;
+-        }
++        driverPool.get().quit();
++        driverPool.remove();
+     }
+-
+ }
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"3f7da706-3bdc-449f-919a-92e9428b95b5\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.gitignore\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/encodings.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/krafttech/Main.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/test/resources/features/Login.feature\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"importingSettings\">\r\n      <MavenImportingSettings>\r\n        <option name=\"workspaceImportEnabled\" value=\"true\" />\r\n      </MavenImportingSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2SnxVqizJSV2cAHASRp2WlHPEAp\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n    <option name=\"showScratchesAndConsoles\" value=\"false\" />\r\n    <option name=\"showVisibilityIcons\" value=\"true\" />\r\n    <option name=\"sortByType\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"3f7da706-3bdc-449f-919a-92e9428b95b5\" name=\"Changes\" comment=\"\" />\r\n      <created>1689796174570</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1689796174570</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision e511a575a4c519167435712f9658db6a5b71ad8a)
++++ b/.idea/workspace.xml	(date 1690733497256)
+@@ -4,16 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="3f7da706-3bdc-449f-919a-92e9428b95b5" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/krafttech/Main.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/Login.feature" afterDir="false" />
+-    </list>
++    <list default="true" id="3f7da706-3bdc-449f-919a-92e9428b95b5" name="Changes" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -40,14 +31,14 @@
+     <option name="showVisibilityIcons" value="true" />
+     <option name="sortByType" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "settings.editor.selected.configurable": "preferences.pluginManager"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
