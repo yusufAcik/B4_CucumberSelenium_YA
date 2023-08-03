@@ -4,13 +4,19 @@ import com.krafttech.pages.LoginPage;
 import com.krafttech.utilities.BrowserUtils;
 import com.krafttech.utilities.ConfigurationReader;
 import com.krafttech.utilities.Driver;
+import com.krafttech.utilities.ExcelUtil;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.util.List;
+import java.util.Map;
+
 public class Login_StepDefs {
 
+//    ExcelUtil excelUtil = new ExcelUtil("src/test/resources/KT_B4_DDF_test.xlsx","QA 1");
+//    List<Map<String, String>> dataList = excelUtil.getDataList();
     LoginPage loginPage = new LoginPage();
 
     @Given("The user is on the login page")
@@ -63,6 +69,25 @@ public class Login_StepDefs {
         BrowserUtils.waitFor(1);
         String actualWarningMessage = loginPage.getWarningMessageText(expectedMessage);
         Assert.assertEquals(expectedMessage,actualWarningMessage);
+
+    }
+    @When("The user enters {string} and row number {int}")
+    public void the_user_enters_and_row_number(String sheetName, Integer rowNumber) {
+//        ExcelUtil excelUtil = new ExcelUtil("src/test/resources/KT_B4_DDF_test.xlsx",sheetName);
+//        List<Map<String, String>> dataList = excelUtil.getDataList();
+//        loginPage.login(dataList.get(0).get("username"),dataList.get(0).get("password"));
+//        loginPage.login(dataList.get(rowNumber).get("username"),dataList.get(rowNumber).get("password"));
+          loginPage.login(loginPage.getDataList(sheetName).get(rowNumber).get("username"),
+                  loginPage.getDataList(sheetName).get(rowNumber).get("password"));
+    }
+    @Then("The user verify that account name is equal {string} {int}")
+    public void the_user_verify_that_account_name_is_equal(String string,Integer rowNumberForName) {
+String actualUserName = loginPage.userAccountName.getText();
+        System.out.println("actualUserName = " + actualUserName);
+//        Assert.assertEquals(actualUserName,dataList.get(rowNumberForName).get("name"));
+    }
+    @Then("The user verify that job name is equal {int} in the {string}")
+    public void the_user_verify_that_job_name_is_equal_in_the(Integer int1, String string) {
 
     }
 

@@ -12,10 +12,10 @@ import org.junit.runner.RunWith;
         },
         features = "src/test/resources/features",
         glue = "com/krafttech/stepDefinitions",
-        dryRun = false,
+        dryRun = true,
         // dryRun testlerin taslaklarını almak için true yapılır
         // normalde testlerin koşturulabilmesi için false olması gerekir
-        tags = "@regression"
+        tags = "@c_ddf"
 
 )
 public class CukesRunner {
