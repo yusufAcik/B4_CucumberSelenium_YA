@@ -9,3 +9,7 @@ Feature: Data Driven Testing in Cucumber
     Examples:
       | sheetName | rowNumber | rowNumberForName | rowNumberForJob |
       | QA 1      | 0         | 0                | 0               |
+      | QA 1      | 1         | 1                | 1               |
+      | QA 1      | 2         | 2                | 2               |
+      | QA 1      | 3         | 3                | 3               |
+      | QA 1      | 4         | 4                | 4               |

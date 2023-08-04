@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
         },
         features = "src/test/resources/features",
         glue = "com/krafttech/stepDefinitions",
-        dryRun = true,
+        dryRun = false,
         // dryRun testlerin taslaklarını almak için true yapılır
         // normalde testlerin koşturulabilmesi için false olması gerekir
         tags = "@c_ddf"

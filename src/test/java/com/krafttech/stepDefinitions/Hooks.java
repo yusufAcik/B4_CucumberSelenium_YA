@@ -20,7 +20,6 @@ public class Hooks {
     @After(order = 0)
     public void tearDown(Scenario scenario){
 
-        System.out.println("This is coming from after method");
         if(scenario.isFailed()){
             final byte[] screenshot = ((TakesScreenshot) Driver.get()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot,"image/png","screenshot");

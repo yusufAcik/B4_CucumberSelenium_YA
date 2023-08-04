@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f7da706-3bdc-449f-919a-92e9428b95b5" name="Changes" comment="parallel.">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/pages/TestingExcel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/utilities/ExcelUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/KT_B4_DDF_test.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/loginTestWithDDF.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_7_30_2023_7_13_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_7_30_2023_7_13_PM__Changes_.xml" afterDir="false" />
+    <list default="true" id="3f7da706-3bdc-449f-919a-92e9428b95b5" name="Changes" comment="3 8">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/krafttech/pages/BasePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/pages/BasePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/krafttech/pages/DashboardPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/pages/DashboardPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/krafttech/runners/CukesRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/runners/CukesRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/krafttech/stepDefinitions/Hooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/stepDefinitions/Hooks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/krafttech/stepDefinitions/Login_StepDefs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/stepDefinitions/Login_StepDefs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/KT_B4_DDF_test.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/KT_B4_DDF_test.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690734533881</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="3 8">
+      <created>1691089887006</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1691089887006</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -170,6 +173,7 @@
     <MESSAGE value="parallel execution12345" />
     <MESSAGE value="parallel execution123456" />
     <MESSAGE value="parallel execution1234567" />
-    <option name="LAST_COMMIT_MESSAGE" value="parallel execution1234567" />
+    <MESSAGE value="3 8" />
+    <option name="LAST_COMMIT_MESSAGE" value="3 8" />
   </component>
 </project>

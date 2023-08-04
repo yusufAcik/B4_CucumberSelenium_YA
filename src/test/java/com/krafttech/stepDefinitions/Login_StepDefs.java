@@ -1,5 +1,6 @@
 package com.krafttech.stepDefinitions;
 
+import com.krafttech.pages.DashboardPage;
 import com.krafttech.pages.LoginPage;
 import com.krafttech.utilities.BrowserUtils;
 import com.krafttech.utilities.ConfigurationReader;
@@ -18,6 +19,7 @@ public class Login_StepDefs {
 //    ExcelUtil excelUtil = new ExcelUtil("src/test/resources/KT_B4_DDF_test.xlsx","QA 1");
 //    List<Map<String, String>> dataList = excelUtil.getDataList();
     LoginPage loginPage = new LoginPage();
+    DashboardPage dashboardPage = new DashboardPage();
 
     @Given("The user is on the login page")
     public void the_user_is_on_the_login_page() {
@@ -81,14 +83,18 @@ public class Login_StepDefs {
                   loginPage.getDataList(sheetName).get(rowNumber).get("password"));
     }
     @Then("The user verify that account name is equal {string} {int}")
-    public void the_user_verify_that_account_name_is_equal(String string,Integer rowNumberForName) {
+    public void the_user_verify_that_account_name_is_equal(String sheetName,Integer rowNumberForName) {
 String actualUserName = loginPage.userAccountName.getText();
         System.out.println("actualUserName = " + actualUserName);
 //        Assert.assertEquals(actualUserName,dataList.get(rowNumberForName).get("name"));
+        Assert.assertEquals(loginPage.getDataList(sheetName).get(rowNumberForName).get("name"),actualUserName);
     }
     @Then("The user verify that job name is equal {int} in the {string}")
-    public void the_user_verify_that_job_name_is_equal_in_the(Integer int1, String string) {
+    public void the_user_verify_that_job_name_is_equal_in_the(Integer rowNumberForJob, String sheetName) {
 
+        String actualJob = dashboardPage.getProfileDetails(loginPage.getDataList(sheetName).get(rowNumberForJob).get("job"));
+        System.out.println("actualJob = " + actualJob);
+        Assert.assertEquals(loginPage.getDataList(sheetName).get(rowNumberForJob).get("job"),actualJob);
     }
 
 }
