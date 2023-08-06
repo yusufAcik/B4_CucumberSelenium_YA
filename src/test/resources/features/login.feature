@@ -4,13 +4,13 @@ Feature: Krafttech Login Test
 
   Background:
     Given The user is on the login page
-  @Teacher @login
+  @Teacher @login @grid
   Scenario: Login as a teacher
    # Given The user is on the login page
     When The user enters teacher credentials
     Then The user should be able to login
 
-  @Student @login
+  @Student @login @grid
   Scenario: Login as a student
    # Given The user is on the login page
     When The user enters student credentials
