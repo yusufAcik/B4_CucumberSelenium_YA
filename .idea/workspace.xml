@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f7da706-3bdc-449f-919a-92e9428b95b5" name="Changes" comment="3 8">
+    <list default="true" id="3f7da706-3bdc-449f-919a-92e9428b95b5" name="Changes" comment="ddf test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/krafttech/pages/DashboardPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/pages/DashboardPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/krafttech/runners/CukesRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/runners/CukesRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/krafttech/stepDefinitions/Hooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/stepDefinitions/Hooks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/krafttech/stepDefinitions/Login_StepDefs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/krafttech/stepDefinitions/Login_StepDefs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/KT_B4_DDF_test.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/KT_B4_DDF_test.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691089887006</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="ddf test">
+      <created>1691151726674</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1691151726674</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -174,6 +176,7 @@
     <MESSAGE value="parallel execution123456" />
     <MESSAGE value="parallel execution1234567" />
     <MESSAGE value="3 8" />
-    <option name="LAST_COMMIT_MESSAGE" value="3 8" />
+    <MESSAGE value="ddf test" />
+    <option name="LAST_COMMIT_MESSAGE" value="ddf test" />
   </component>
 </project>
